@@ -8,7 +8,7 @@ namespace C_Shop_Class_20220522.Models
         // Validation Attribute
         [Required]
         [Range(1, 1000)]
-        [Display(Name="No.")]
+        [Display(Name = "No.")]
         public int? Id { get; set; }
         [Required]
         [Display(Name = "姓名")]
@@ -26,17 +26,23 @@ namespace C_Shop_Class_20220522.Models
 
     public class FamilyInfo
     {
-        public List<Family> _family = new List<Family>();
-        public FamilyInfo()
+        public List<Family> _familyList = new List<Family>();
+
+        public Family family = new Family();
+        public FamilyInfo(List<Family> families)
         {
-            var ZinzanFamily = new List<Family>()
+            _familyList = families;
+        }
+        public void FamilyDetail(bool submitstatus,  Family submit)
+        {
+            if (submitstatus)
+            {                
+                family = submit;
+            }
+            else
             {
-            new Family(){ Name="張曉明", Title="爸爸", Id=1, Age=55, NickName="大張" },
-            new Family(){ Name="黃小鴨", Title="媽媽", Id=2, Age=50, NickName="大黃" },
-            new Family(){ Name="張非", Title="本人", Id=3, Age=18, NickName="小張" },
-            new Family(){ Name="張胡", Title="弟弟", Id=4, Age=8, NickName="小小張" },
-            };
-            _family.AddRange(ZinzanFamily);
+                family.Id = _familyList.Max(x => x.Id) + 1;
+            }
         }
     }
 }
